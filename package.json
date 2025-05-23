@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://DaradMosa.github.io",
+  "homepage": "https://DaradMosa.github.io/Schedulak",
 
   "scripts": {
     "dev": "vite",
