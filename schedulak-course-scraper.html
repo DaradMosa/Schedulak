@@ -1,0 +1,858 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Schedulak - Course Scraper</title>
+    <style>
+        /* Basic Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        body {
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-right: 20px;
+        }
+        
+        .logo-circle {
+            background-color: #6366f1;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 24px;
+        }
+        
+        .logo-text {
+            font-size: 24px;
+            font-weight: bold;
+        }
+        
+        h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+        }
+        
+        .card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+            overflow: hidden;
+        }
+        
+        .card-header {
+            padding: 20px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .card-title {
+            font-size: 18px;
+            font-weight: bold;
+        }
+        
+        .card-content {
+            padding: 20px;
+        }
+        
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+        
+        @media (min-width: 768px) {
+            .form-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+        
+        select, input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        
+        .input-group {
+            display: flex;
+            gap: 10px;
+        }
+        
+        button {
+            background-color: #6366f1;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: background-color 0.3s;
+        }
+        
+        button:hover {
+            background-color: #4f46e5;
+        }
+        
+        button:disabled {
+            background-color: #a5a6f6;
+            cursor: not-allowed;
+        }
+        
+        .spinner {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        
+        th {
+            text-align: left;
+            padding: 12px;
+            background-color: #f8f9fa;
+            border-bottom: 2px solid #ddd;
+        }
+        
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+        
+        .badge-default {
+            background-color: #e2e8f0;
+            color: #1e293b;
+        }
+        
+        .badge-danger {
+            background-color: #fee2e2;
+            color: #b91c1c;
+        }
+        
+        .checkbox-wrapper {
+            display: flex;
+            align-items: center;
+        }
+        
+        .checkbox {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+        
+        .schedule-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+        
+        @media (min-width: 768px) {
+            .schedule-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        
+        .day-card {
+            border: 1px solid #eee;
+            border-radius: 6px;
+            overflow: hidden;
+        }
+        
+        .day-header {
+            background-color: #f8f9fa;
+            padding: 10px;
+            font-weight: 500;
+        }
+        
+        .day-content {
+            padding: 10px;
+        }
+        
+        .class-slot {
+            border: 1px solid #eee;
+            border-radius: 4px;
+            padding: 10px;
+            margin-bottom: 10px;
+            background-color: white;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+        
+        .class-code {
+            font-weight: 500;
+            font-size: 14px;
+        }
+        
+        .class-time {
+            font-size: 12px;
+        }
+        
+        .class-instructor {
+            font-size: 12px;
+            color: #666;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        .summary-box {
+            background-color: #f8f9fa;
+            border-radius: 6px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .summary-title {
+            font-weight: 500;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .check-icon {
+            color: #10b981;
+        }
+        
+        .toast {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: white;
+            border-radius: 6px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            padding: 15px 20px;
+            display: flex;
+            flex-direction: column;
+            min-width: 300px;
+            transform: translateY(-100px);
+            opacity: 0;
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+        
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        
+        .toast-title {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .toast-description {
+            color: #666;
+            font-size: 14px;
+        }
+        
+        .submit-right {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 15px;
+        }
+        
+        .loading-box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 0;
+        }
+        
+        .big-spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid rgba(99, 102, 241, 0.3);
+            border-radius: 50%;
+            border-top-color: #6366f1;
+            animation: spin 1s ease-in-out infinite;
+            margin-bottom: 16px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <div class="logo-circle">S</div>
+                <div class="logo-text">Schedulak</div>
+            </div>
+        </header>
+        
+        <div>
+            <h1>Course Scraper</h1>
+            <p class="subtitle">
+                Find available courses from university registration systems and generate an optimized schedule.
+            </p>
+        </div>
+        
+        <div class="card">
+            <div class="card-header">
+                <div class="card-title">Set Your Preferences</div>
+            </div>
+            <div class="card-content">
+                <div class="form-grid">
+                    <div>
+                        <div class="form-group">
+                            <label for="day-group">Select Day Group</label>
+                            <select id="day-group">
+                                <option value="sun-tue-thu">Sunday-Tuesday-Thursday</option>
+                                <option value="mon-wed">Monday-Wednesday</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Search For Courses</label>
+                            <div class="input-group">
+                                <input 
+                                    id="search-input"
+                                    placeholder="e.g., Computer Science, MATH 101..."
+                                    type="text"
+                                />
+                                <button id="search-button">
+                                    <span id="search-icon">🔍</span>
+                                    <span id="search-spinner" class="spinner" style="display: none;"></span>
+                                    <span id="search-text">Search</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <div class="form-group">
+                            <label>Time Range</label>
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 5px;">
+                                <div>
+                                    <label for="start-time" style="font-size: 14px;">From</label>
+                                    <select id="start-time">
+                                        <option value="8:00 AM">8:00 AM</option>
+                                        <option value="9:00 AM">9:00 AM</option>
+                                        <option value="10:00 AM">10:00 AM</option>
+                                        <option value="11:00 AM">11:00 AM</option>
+                                        <option value="12:00 PM">12:00 PM</option>
+                                        <option value="1:00 PM">1:00 PM</option>
+                                        <option value="2:00 PM">2:00 PM</option>
+                                        <option value="3:00 PM">3:00 PM</option>
+                                        <option value="4:00 PM">4:00 PM</option>
+                                        <option value="5:00 PM">5:00 PM</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label for="end-time" style="font-size: 14px;">To</label>
+                                    <select id="end-time">
+                                        <option value="9:00 AM">9:00 AM</option>
+                                        <option value="10:00 AM">10:00 AM</option>
+                                        <option value="11:00 AM">11:00 AM</option>
+                                        <option value="12:00 PM">12:00 PM</option>
+                                        <option value="1:00 PM">1:00 PM</option>
+                                        <option value="2:00 PM">2:00 PM</option>
+                                        <option value="3:00 PM">3:00 PM</option>
+                                        <option value="4:00 PM">4:00 PM</option>
+                                        <option value="5:00 PM">5:00 PM</option>
+                                        <option value="6:00 PM" selected>6:00 PM</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div id="results-container" style="display: none;" class="card">
+            <div class="card-header">
+                <div class="card-title">
+                    📚 Available Courses
+                </div>
+            </div>
+            <div class="card-content">
+                <table>
+                    <thead>
+                        <tr>
+                            <th style="width: 50px;">Select</th>
+                            <th>Course Code</th>
+                            <th style="width: 300px;">Title</th>
+                            <th>Instructor</th>
+                            <th>Schedule</th>
+                            <th>Availability</th>
+                        </tr>
+                    </thead>
+                    <tbody id="results-table">
+                        <!-- Results will be inserted here dynamically -->
+                    </tbody>
+                </table>
+                <div class="submit-right">
+                    <button id="generate-button" disabled>
+                        Generate Optimized Schedule
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <div id="schedule-container" style="display: none;" class="card">
+            <div class="card-header">
+                <div class="card-title">Your Optimized Schedule</div>
+            </div>
+            <div class="card-content" id="schedule-content">
+                <!-- Schedule will be inserted here dynamically -->
+            </div>
+        </div>
+        
+        <div id="toast" class="toast">
+            <div class="toast-title"></div>
+            <div class="toast-description"></div>
+        </div>
+    </div>
+    
+    <script>
+        // Mock data for courses
+        const mockCourses = [
+            {
+                id: "cs101",
+                code: "CS 101",
+                title: "Introduction to Computer Science",
+                credits: 3,
+                instructor: "Dr. Alan Turing",
+                schedule: "Sun, Tue 10:00 AM - 11:30 AM",
+                availability: 15,
+                startTime: "10:00 AM",
+                endTime: "11:30 AM"
+            },
+            {
+                id: "cs201",
+                code: "CS 201",
+                title: "Data Structures and Algorithms",
+                credits: 4,
+                instructor: "Prof. Ada Lovelace",
+                schedule: "Mon, Wed 1:00 PM - 3:00 PM",
+                availability: 8,
+                startTime: "1:00 PM",
+                endTime: "3:00 PM"
+            },
+            {
+                id: "math241",
+                code: "MATH 241",
+                title: "Calculus III",
+                credits: 4,
+                instructor: "Dr. Katherine Johnson",
+                schedule: "Sun, Tue, Thu 9:00 AM - 10:00 AM",
+                availability: 23,
+                startTime: "9:00 AM",
+                endTime: "10:00 AM"
+            },
+            {
+                id: "phys211",
+                code: "PHYS 211",
+                title: "General Physics I",
+                credits: 4,
+                instructor: "Prof. Richard Feynman",
+                schedule: "Mon, Wed 10:00 AM - 12:00 PM",
+                availability: 12,
+                startTime: "10:00 AM",
+                endTime: "12:00 PM"
+            },
+            {
+                id: "eng102",
+                code: "ENG 102",
+                title: "Academic Writing and Research",
+                credits: 3,
+                instructor: "Dr. Emily Dickinson",
+                schedule: "Wed 1:00 PM - 4:00 PM",
+                availability: 20,
+                startTime: "1:00 PM",
+                endTime: "4:00 PM"
+            },
+            {
+                id: "hist101",
+                code: "HIST 101",
+                title: "World History I",
+                credits: 3,
+                instructor: "Dr. Howard Zinn",
+                schedule: "Sun, Thu 2:00 PM - 3:15 PM",
+                availability: 18,
+                startTime: "2:00 PM",
+                endTime: "3:15 PM"
+            },
+            {
+                id: "chem101",
+                code: "CHEM 101",
+                title: "General Chemistry",
+                credits: 4,
+                instructor: "Dr. Marie Curie",
+                schedule: "Mon, Wed 3:30 PM - 5:00 PM",
+                availability: 10,
+                startTime: "3:30 PM",
+                endTime: "5:00 PM"
+            },
+            {
+                id: "psych101",
+                code: "PSYCH 101",
+                title: "Introduction to Psychology",
+                credits: 3,
+                instructor: "Dr. Carl Jung",
+                schedule: "Tue, Thu 8:00 AM - 9:15 AM",
+                availability: 25,
+                startTime: "8:00 AM",
+                endTime: "9:15 AM"
+            }
+        ];
+        
+        // Elements
+        const searchButton = document.getElementById('search-button');
+        const searchInput = document.getElementById('search-input');
+        const dayGroupSelect = document.getElementById('day-group');
+        const startTimeSelect = document.getElementById('start-time');
+        const endTimeSelect = document.getElementById('end-time');
+        const resultsContainer = document.getElementById('results-container');
+        const resultsTable = document.getElementById('results-table');
+        const generateButton = document.getElementById('generate-button');
+        const scheduleContainer = document.getElementById('schedule-container');
+        const scheduleContent = document.getElementById('schedule-content');
+        const toast = document.getElementById('toast');
+        
+        // State
+        let searchResults = [];
+        let selectedCourses = [];
+        
+        // Search for courses
+        searchButton.addEventListener('click', function() {
+            // Show loading state
+            searchButton.disabled = true;
+            document.getElementById('search-text').textContent = 'Searching...';
+            document.getElementById('search-icon').style.display = 'none';
+            document.getElementById('search-spinner').style.display = 'inline-block';
+            
+            // Get filter values
+            const query = searchInput.value;
+            const dayGroup = dayGroupSelect.value;
+            const startTime = startTimeSelect.value;
+            const endTime = endTimeSelect.value;
+            
+            // Simulate API delay
+            setTimeout(() => {
+                // Filter results based on criteria
+                const filtered = mockCourses.filter(course => {
+                    // Filter by search query
+                    const matchesQuery = query.trim() === "" || 
+                        course.title.toLowerCase().includes(query.toLowerCase()) || 
+                        course.code.toLowerCase().includes(query.toLowerCase());
+                    
+                    // Filter by time
+                    const courseStartTime = new Date(`01/01/2023 ${course.startTime}`).getTime();
+                    const courseEndTime = new Date(`01/01/2023 ${course.endTime}`).getTime();
+                    const prefStartTime = new Date(`01/01/2023 ${startTime}`).getTime();
+                    const prefEndTime = new Date(`01/01/2023 ${endTime}`).getTime();
+                    
+                    const isWithinTimeRange = courseStartTime >= prefStartTime && courseEndTime <= prefEndTime;
+                    
+                    // Filter by day group
+                    const dayPattern = dayGroup === "sun-tue-thu" ? 
+                        /Sun|Tue|Thu/ : /Mon|Wed/;
+                    const matchesDayGroup = dayPattern.test(course.schedule);
+                    
+                    return matchesQuery && isWithinTimeRange && matchesDayGroup;
+                });
+                
+                // Update state
+                searchResults = filtered;
+                
+                // Reset selected courses when new search
+                selectedCourses = [];
+                generateButton.disabled = true;
+                
+                // Hide schedule if showing
+                scheduleContainer.style.display = 'none';
+                
+                // Display results
+                displayResults(filtered);
+                
+                // Reset button state
+                searchButton.disabled = false;
+                document.getElementById('search-text').textContent = 'Search';
+                document.getElementById('search-icon').style.display = 'inline-block';
+                document.getElementById('search-spinner').style.display = 'none';
+                
+                // Show toast notification
+                showToast('Courses Retrieved', `Found ${filtered.length} courses matching your criteria.`);
+            }, 1500);
+        });
+        
+        // Display search results
+        function displayResults(courses) {
+            resultsTable.innerHTML = '';
+            
+            if (courses.length === 0) {
+                resultsTable.innerHTML = '<tr><td colspan="6" style="text-align:center;">No courses found matching your criteria.</td></tr>';
+            } else {
+                courses.forEach(course => {
+                    const row = document.createElement('tr');
+                    
+                    row.innerHTML = `
+                        <td>
+                            <div class="checkbox-wrapper">
+                                <input type="checkbox" class="checkbox" data-id="${course.id}" id="select-${course.id}">
+                            </div>
+                        </td>
+                        <td style="font-weight: 500;">${course.code}</td>
+                        <td>
+                            <div>${course.title}</div>
+                            <div style="font-size: 12px; color: #666;">${course.credits} credits</div>
+                        </td>
+                        <td>${course.instructor}</td>
+                        <td>${course.schedule}</td>
+                        <td>
+                            <span class="badge ${course.availability < 10 ? 'badge-danger' : 'badge-default'}">
+                                ${course.availability} seats
+                            </span>
+                        </td>
+                    `;
+                    
+                    resultsTable.appendChild(row);
+                });
+                
+                // Add event listeners to checkboxes
+                const checkboxes = document.querySelectorAll('.checkbox');
+                checkboxes.forEach(checkbox => {
+                    checkbox.addEventListener('change', function() {
+                        const courseId = this.getAttribute('data-id');
+                        
+                        if (this.checked) {
+                            selectedCourses.push(courseId);
+                        } else {
+                            selectedCourses = selectedCourses.filter(id => id !== courseId);
+                        }
+                        
+                        // Update generate button state
+                        generateButton.disabled = selectedCourses.length === 0;
+                    });
+                });
+            }
+            
+            resultsContainer.style.display = 'block';
+        }
+        
+        // Generate schedule
+        generateButton.addEventListener('click', function() {
+            if (selectedCourses.length === 0) {
+                showToast('No Courses Selected', 'Please select at least one course to generate a schedule.', 'error');
+                return;
+            }
+            
+            // Show loading state
+            scheduleContainer.style.display = 'block';
+            scheduleContent.innerHTML = `
+                <div class="loading-box">
+                    <div class="big-spinner"></div>
+                    <p style="font-size: 18px; font-weight: 500;">Generating your optimized schedule...</p>
+                </div>
+            `;
+            
+            // Simulate processing delay
+            setTimeout(() => {
+                generateOptimizedSchedule();
+            }, 2000);
+        });
+        
+        // Generate the optimized schedule
+        function generateOptimizedSchedule() {
+            // Get the selected courses from the results
+            const coursesToSchedule = searchResults.filter(course => selectedCourses.includes(course.id));
+            
+            // Create days based on selected day group
+            const days = dayGroupSelect.value === "sun-tue-thu" 
+                ? ["Sunday", "Tuesday", "Thursday"] 
+                : ["Monday", "Wednesday"];
+            
+            const schedule = days.map(day => ({ day, slots: [] }));
+            
+            // Add courses to schedule
+            coursesToSchedule.forEach(course => {
+                const matchingDays = days.filter(day => 
+                    course.schedule.includes(day.substring(0, 3))
+                );
+                
+                matchingDays.forEach(day => {
+                    const dayIndex = days.indexOf(day);
+                    if (dayIndex !== -1) {
+                        schedule[dayIndex].slots.push({
+                            courseId: course.id,
+                            courseCode: course.code,
+                            courseTitle: course.title,
+                            startTime: course.startTime,
+                            endTime: course.endTime,
+                            instructor: course.instructor
+                        });
+                    }
+                });
+            });
+            
+            // Sort slots by start time
+            schedule.forEach(day => {
+                day.slots.sort((a, b) => {
+                    const timeA = new Date(`01/01/2023 ${a.startTime}`).getTime();
+                    const timeB = new Date(`01/01/2023 ${b.startTime}`).getTime();
+                    return timeA - timeB;
+                });
+            });
+            
+            // Display the schedule
+            displaySchedule(schedule, coursesToSchedule);
+            
+            // Show toast notification
+            showToast('Schedule Generated', 'Optimized schedule created based on your preferences.');
+        }
+        
+        // Display the generated schedule
+        function displaySchedule(schedule, selectedCourseObjects) {
+            let html = `
+                <div class="schedule-grid">
+            `;
+            
+            // Create day cards
+            schedule.forEach(day => {
+                html += `
+                    <div class="day-card">
+                        <div class="day-header">${day.day}</div>
+                        <div class="day-content">
+                `;
+                
+                if (day.slots.length === 0) {
+                    html += `<p style="color: #666; font-size: 14px; padding: 10px 0;">No classes</p>`;
+                } else {
+                    day.slots.forEach(slot => {
+                        html += `
+                            <div class="class-slot">
+                                <div class="class-code">${slot.courseCode}</div>
+                                <div class="class-time">${slot.startTime} - ${slot.endTime}</div>
+                                <div class="class-instructor" title="${slot.instructor}">${slot.instructor}</div>
+                            </div>
+                        `;
+                    });
+                }
+                
+                html += `
+                        </div>
+                    </div>
+                `;
+            });
+            
+            html += `</div>`;
+            
+            // Calculate summary
+            const totalCredits = selectedCourseObjects.reduce((sum, course) => sum + course.credits, 0);
+            const daysWithClasses = schedule.filter(day => day.slots.length > 0).length;
+            
+            html += `
+                <div class="summary-box">
+                    <div class="summary-title">
+                        <span class="check-icon">✓</span>
+                        Schedule Summary
+                    </div>
+                    <ul style="list-style-type: none; margin-left: 10px;">
+                        <li>Total Credits: ${totalCredits}</li>
+                        <li>Total Courses: ${selectedCourseObjects.length}</li>
+                        <li>Days with Classes: ${daysWithClasses}</li>
+                    </ul>
+                </div>
+                
+                <div class="submit-right">
+                    <button id="export-button">Export Schedule</button>
+                </div>
+            `;
+            
+            scheduleContent.innerHTML = html;
+            
+            // Add export event listener
+            const exportButton = document.getElementById('export-button');
+            if (exportButton) {
+                exportButton.addEventListener('click', function() {
+                    showToast('Schedule Exported', 'Your schedule has been exported successfully.');
+                });
+            }
+        }
+        
+        // Show toast notification
+        function showToast(title, description, type = 'success') {
+            const toastElement = document.getElementById('toast');
+            toastElement.querySelector('.toast-title').textContent = title;
+            toastElement.querySelector('.toast-description').textContent = description;
+            
+            // Add show class
+            toastElement.classList.add('show');
+            
+            // Automatically hide after 3 seconds
+            setTimeout(() => {
+                toastElement.classList.remove('show');
+            }, 3000);
+        }
+    </script>
+</body>
+</html>

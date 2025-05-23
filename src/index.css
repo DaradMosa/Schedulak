@@ -1,0 +1,231 @@
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 210 40% 98%;
+    --foreground: 222.2 84% 4.9%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+
+    --primary: 201 100% 50%;
+    --primary-foreground: 210 40% 98%;
+
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 222.2 84% 4.9%;
+
+    --radius: 0.5rem;
+
+    /* Brand colors based on the logo */
+    --brand-50: 201 100% 95%;
+    --brand-100: 201 100% 90%;
+    --brand-200: 201 100% 80%;
+    --brand-300: 201 100% 70%;
+    --brand-400: 201 100% 60%;
+    --brand-500: 201 100% 50%;  /* Logo blue */
+    --brand-600: 201 100% 40%;
+    --brand-700: 201 100% 30%;
+    --brand-800: 201 100% 20%;
+    --brand-900: 201 100% 10%;
+  }
+
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 201 100% 40%;
+    --primary-foreground: 210 40% 98%;
+
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 212.7 26.8% 83.9%;
+
+    /* Brand colors in dark mode */
+    --brand-50: 201 70% 5%;
+    --brand-100: 201 70% 10%;
+    --brand-200: 201 70% 20%;
+    --brand-300: 201 70% 30%;
+    --brand-400: 201 70% 40%;
+    --brand-500: 201 70% 50%;
+    --brand-600: 201 70% 60%;
+    --brand-700: 201 70% 70%;
+    --brand-800: 201 70% 80%;
+    --brand-900: 201 70% 90%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    background: linear-gradient(135deg, #e0f7fa 0%, #bbdefb 25%, #c5cae9 50%, #d1c4e9 75%, #f8bbd0 100%);
+    background-attachment: fixed;
+    background-size: 400% 400%;
+    animation: gradientShift 15s ease infinite;
+  }
+
+  @keyframes gradientShift {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+}
+
+/* Apply special styling to cards across the application */
+.card {
+  @apply backdrop-blur-sm bg-white/80 border border-white/20 shadow-lg hover:shadow-xl transition-all duration-300;
+}
+
+/* Update course card styling */
+.course-card {
+  @apply transition-all duration-200 hover:shadow-lg backdrop-blur-sm bg-white/70 border border-white/30;
+  transform: translateY(0);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.course-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Add animation-delay utilities */
+.animation-delay-2000 {
+  animation-delay: 0.2s;
+}
+
+.animation-delay-4000 {
+  animation-delay: 0.4s;
+}
+
+/* Add blob animation */
+@keyframes blob {
+  0% {
+    transform: translate(0px, 0px) scale(1);
+  }
+  33% {
+    transform: translate(30px, -50px) scale(1.1);
+  }
+  66% {
+    transform: translate(-20px, 20px) scale(0.9);
+  }
+  100% {
+    transform: translate(0px, 0px) scale(1);
+  }
+}
+
+.animate-blob {
+  animation: blob 7s infinite;
+}
+
+/* Add some new animations and effects */
+.scale-on-hover {
+  transition: transform 0.2s ease;
+}
+
+.scale-on-hover:hover {
+  transform: scale(1.05);
+}
+
+.glow-on-hover {
+  transition: box-shadow 0.3s ease;
+}
+
+.glow-on-hover:hover {
+  box-shadow: 0 0 15px rgba(66, 153, 225, 0.5);
+}
+
+/* Logo animations */
+.animate-pulse {
+  animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.9;
+    transform: scale(1.05);
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(241, 242, 243, 0.6);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(66, 153, 225, 0.5);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(66, 153, 225, 0.7);
+}
