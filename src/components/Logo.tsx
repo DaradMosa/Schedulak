@@ -1,3 +1,8 @@
+import myImage from '/lovable-uploads/9a49c76c-028e-4eff-87c9-52a0d170ffac.png'; // ✅ Adjust path as needed
+
+function MyComponent() {
+  return <img src={myImage} alt="example" />;
+}
 
 interface LogoProps {
   size?: "sm" | "md" | "lg";
@@ -21,7 +26,7 @@ const Logo = ({ size = "md", showText = true }: LogoProps) => {
     <div className="flex items-center gap-2">
       <div className={`relative flex items-center justify-center ${getSizeClass()}`}>
         <img 
-          src="/lovable-uploads/9a49c76c-028e-4eff-87c9-52a0d170ffac.png" 
+          src={myImage}
           alt="Schedulak Logo" 
           className="w-full h-full object-contain"
         />
