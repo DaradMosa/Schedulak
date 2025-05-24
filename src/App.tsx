@@ -31,7 +31,7 @@ const App = () => (
             {/* Public routes */}
             <Route path="/" element={<LandingPage />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/admin/login" element={<AdminLogin />} />
+            <Route path="/admin-login" element={<AdminLogin />} />
             
             {/* Protected routes wrapped in Layout component */}
             <Route path="/community" element={<Layout><Community /></Layout>} />
