@@ -14,7 +14,7 @@ export default defineConfig(({ mode }) => ({
     mode === 'development' &&
     componentTagger(),
   ].filter(Boolean),
-  base: '/Schedulak',
+  base: '/Schedulak/',
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),

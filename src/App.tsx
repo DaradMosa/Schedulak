@@ -26,11 +26,10 @@ const App = () => (
         <Toaster />
         <Sonner />
         
-        <BrowserRouter>
+        <BrowserRouter basename="/Schedulak">
           <Routes>
             {/* Public routes */}
             <Route path="/" element={<LandingPage />} />
-            <Route path="/Schedulak" element={<LandingPage />} />
             <Route path="/login" element={<Login />} />
             <Route path="/admin/login" element={<AdminLogin />} />
             
