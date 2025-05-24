@@ -31,7 +31,7 @@ const App = () => (
             {/* Public routes */}
             <Route path="/" element={<LandingPage />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/admin-login" element={<AdminLogin />} />
+            <Route path="/AdminLogin" element={<AdminLogin />} />
             
             {/* Protected routes wrapped in Layout component */}
             <Route path="/community" element={<Layout><Community /></Layout>} />
@@ -40,7 +40,7 @@ const App = () => (
             <Route path="/profile" element={<Layout><Profile /></Layout>} />
             
             {/* Admin routes with AdminLayout (no sidebar) */}
-            <Route path="/admin/dashboard" element={<AdminLayout><AdminDashboard /></AdminLayout>} />
+            <Route path="/AdminDashboard" element={<AdminLayout><AdminDashboard /></AdminLayout>} />
             
             {/* Fallback route for 404 errors */}
             <Route path="*" element={<NotFound />} />

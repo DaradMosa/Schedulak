@@ -37,7 +37,7 @@ const AdminLogin = () => {
         title: "Success",
         description: "Admin login successful!",
       });
-      navigate("/admin/dashboard");
+      navigate("/AdminDashboard");
     } else {
       toast({
         title: "Error",
