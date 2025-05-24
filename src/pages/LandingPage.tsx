@@ -81,13 +81,13 @@ const LandingPage = () => {
                 Generate optimized course schedules that fit your availability and preferences.
               </p>
             </div>
-            <div className="bg-white/70 backdrop-blur-sm border border-white/50 rounded-lg p-6 shadow-lg hover:shadow-xl transition-all duration-300 animate-fade-in hover:translate-y-[-5px] animation-delay-2000">
+            {/* <div className="bg-white/70 backdrop-blur-sm border border-white/50 rounded-lg p-6 shadow-lg hover:shadow-xl transition-all duration-300 animate-fade-in hover:translate-y-[-5px] animation-delay-2000">
               <CheckCircle className="h-10 w-10 text-green-500 mb-4" />
               <h3 className="text-xl font-semibold mb-2 text-green-700">Task Management</h3>
               <p className="text-muted-foreground">
                 Stay on top of assignments, readings, and exams with smart task tracking.
               </p>
-            </div>
+            </div> */}
             <div className="bg-white/70 backdrop-blur-sm border border-white/50 rounded-lg p-6 shadow-lg hover:shadow-xl transition-all duration-300 animate-fade-in hover:translate-y-[-5px] animation-delay-4000">
               <Users className="h-10 w-10 text-purple-500 mb-4" />
               <h3 className="text-xl font-semibold mb-2 text-purple-700">Study Groups</h3>
@@ -95,13 +95,13 @@ const LandingPage = () => {
                 Connect with classmates, share notes, and organize study sessions.
               </p>
             </div>
-            <div className="bg-white/70 backdrop-blur-sm border border-white/50 rounded-lg p-6 shadow-lg hover:shadow-xl transition-all duration-300 animate-fade-in hover:translate-y-[-5px]">
+            {/* <div className="bg-white/70 backdrop-blur-sm border border-white/50 rounded-lg p-6 shadow-lg hover:shadow-xl transition-all duration-300 animate-fade-in hover:translate-y-[-5px]">
               <BookOpen className="h-10 w-10 text-amber-500 mb-4" />
               <h3 className="text-xl font-semibold mb-2 text-amber-700">Course Materials</h3>
               <p className="text-muted-foreground">
                 Access and organize all your course materials in one central location.
               </p>
-            </div>
+            </div> */}
             <div className="bg-white/70 backdrop-blur-sm border border-white/50 rounded-lg p-6 shadow-lg hover:shadow-xl transition-all duration-300 animate-fade-in hover:translate-y-[-5px] animation-delay-2000">
               <Clock className="h-10 w-10 text-blue-500 mb-4" />
               <h3 className="text-xl font-semibold mb-2 text-blue-700">Time Analytics</h3>
@@ -109,13 +109,13 @@ const LandingPage = () => {
                 Visualize how you spend your time and optimize your study habits.
               </p>
             </div>
-            <div className="bg-white/70 backdrop-blur-sm border border-white/50 rounded-lg p-6 shadow-lg hover:shadow-xl transition-all duration-300 animate-fade-in hover:translate-y-[-5px] animation-delay-4000">
+            {/* <div className="bg-white/70 backdrop-blur-sm border border-white/50 rounded-lg p-6 shadow-lg hover:shadow-xl transition-all duration-300 animate-fade-in hover:translate-y-[-5px] animation-delay-4000">
               <ArrowRight className="h-10 w-10 text-pink-500 mb-4" />
               <h3 className="text-xl font-semibold mb-2 text-pink-700">And More</h3>
               <p className="text-muted-foreground">
                 Discover all the features designed to help you succeed academically.
               </p>
-            </div>
+            </div> */}
           </div>
         </section>
 
