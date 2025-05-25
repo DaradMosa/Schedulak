@@ -13,7 +13,7 @@ const Community = () => {
   const [posts] = useState([
     {
       id: 1,
-      author: "Alice Johnson",
+      author: "Mosa",
       content: "Does anyone have notes for Advanced Calculus? The midterm is next week!",
       timestamp: "2 hours ago",
       replies: 5,
@@ -22,7 +22,7 @@ const Community = () => {
     },
     {
       id: 2,
-      author: "Bob Smith",
+      author: "Laith",
       content: "Looking for study partners for Computer Networks. Anyone interested in forming a study group?",
       timestamp: "4 hours ago",
       replies: 8,
@@ -31,7 +31,7 @@ const Community = () => {
     },
     {
       id: 3,
-      author: "Carol Davis",
+      author: "Azoz",
       content: "Professor Johnson's office hours have been moved to Thursdays 2-4 PM",
       timestamp: "1 day ago",
       replies: 2,
