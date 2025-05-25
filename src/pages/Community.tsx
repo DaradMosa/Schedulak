@@ -88,10 +88,7 @@ const Community = () => {
           <MessageSquare className="h-8 w-8 text-pink-600" />
           <h1 className="text-3xl font-bold">Community</h1>
         </div>
-        <Button onClick={handleContactAdmin} variant="outline" className="gap-2">
-          <AlertTriangle className="h-4 w-4" />
-          Contact Admin
-        </Button>
+      
       </div>
 
       <Tabs defaultValue="posts" className="space-y-4">

@@ -7,12 +7,12 @@ import { User, GraduationCap, Clock, CheckCircle } from "lucide-react";
 const Profile = () => {
   // Mock user data
   const user = {
-    name: "John Doe",
-    id: "20231001",
-    major: "Computer Science",
-    totalCredits: 120,
-    completedCredits: 75,
-    remainingCredits: 45,
+    name: "Mosa",
+    id: "0222634",
+    major: "Business Information Techonolgy",
+    totalCredits: 132,
+    completedCredits: 99,
+    remainingCredits: 33,
   };
 
   const courses = [
